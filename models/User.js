@@ -4,18 +4,32 @@ const db = require('../db');
 
 // 2. Cook
 async function getAll() {
-try {
-    const allUsers = await db.any(`select * from users`)
-    // .catch((error) => {
-    //     console.log('Error getting users.');
-    //     console.log(error);
-    // });
-    return allUsers;
-} catch (error) {
-    console.log('error');
-    console.log(error);
+    const users = await db.any(`select * from users`);
+
+    const arrayOfPromises = users.map(async user => {
+        const userTodos = await db.any(`select * from todos where user_id = $1`, [user.id]);
+        user.todos = userTodos;
+        return user;
+    });
+
+    const arrayOfUsersWithTodos = await Promise.all(arrayOfPromises);
+
+    return arrayOfUsersWithTodos;
 }
-};
+// async function getAll() {
+// try {
+//     const allUsers = await db.any(`select * from users`)
+//     // .catch((error) => {
+//     //     console.log('Error getting users.');
+//     //     console.log(error);
+//     // });
+//     return allUsers;
+// } catch (error) {
+//     console.log('error');
+//     console.log(error);
+//     return [];
+// }
+// };
 
 
 // What we want

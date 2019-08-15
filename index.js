@@ -12,35 +12,35 @@ const port = 3000;
 
 // const server = http.createServer((req, res) => {
 // Replace with app.get()
-app.get('/todos', (req, res) => {
+app.get('/todos', async (req, res) => {
 
     // "debugger" keyword adds a programmatic breakpoint for the Chrome Dev Tools:
 
     // debugger;
 
     console.log('you have a request!');
-    const allTodos = Todo.getAll();
-    allTodos
-        .then((data) => {
-            console.log("OMG IT'S DATAZZZ")
-            console.log(data);
+    const allTodos = await Todo.getAll();
+    // allTodos
+    //     .then((data) => {
+    //         console.log("OMG IT'S DATAZZZ")
+    //         console.log(data);
             // const dataJSON = JSON.stringify(data);
             // res.end(dataJSON);
-            res.json(data);
-        });
+    res.json(allTodos);
+        // });
 });
 
-app.get('/todos/:taskId', (req, res) => {
+app.get('/todos/:taskId', async (req, res) => {
     const theId = parseInt(req.params.taskId, 10);
     // convert 
-    const oneTodos = Todo.getOne(theId);
-    oneTodos.then((data) => {
-        console.log('specific task');
+    const oneTodos = await Todo.getOne(theId);
+    // oneTodos.then((data) => {
+    //     console.log('specific task');
         // console.log(req.params.taskId);
         // const dataJSON = JSON.stringify(data);
         // res.end(dataJSON);
-        res.json(data);
-    });
+        res.json(oneTodos);
+    // });
 });
 
 
@@ -54,11 +54,11 @@ app.get('/todos/:taskId', (req, res) => {
 
 
 // Getting users
-app.get('/users', (req, res) => {
-    const allUsers = User.getAll();
-    allUsers.then ((data) => {
-        res.json(data);
-    });
+app.get('/users', async (req, res) => {
+    const allUsers = await User.getAll();
+    // allUsers.then ((data) => {
+        res.json(allUsers);
+    // });
 });
 
 
@@ -67,9 +67,9 @@ app.get('/users', (req, res) => {
 app.get('/users/:userID', (req, res) => {
     const theId = parseInt(req.params.userID, 10);
     const oneUser = User.getOne(theId);
-    oneUser.then ((data) => {
-        res.json(data);
-    });
+    // oneUser.then ((data) => {
+        res.json(oneUser);
+    // });
 });
 
 
