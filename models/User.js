@@ -3,12 +3,13 @@ const db = require('../db');
 
 
 // 2. Cook
-function getAll() {
-    return db.any(`select * from users`)
-    .catch((error) => {
-        console.log('Error getting users.');
-        console.log(error);
-    });
+async function getAll() {
+    const allUsers = await db.any(`select * from users`)
+    // .catch((error) => {
+    //     console.log('Error getting users.');
+    //     console.log(error);
+    // });
+    return allUsers;
 };
 
 
@@ -25,13 +26,20 @@ function getAll() {
 // }
 
 async function getOne(id) {
+try {
     const user = await db.one(`select * from users where id=$1`, [id]);
 
     const todosForUser = await db.any(`select * from todos where user_id=$1`, [id])
 
     user.todos = todosForUser;
     return user;
-
+} catch (error) {
+    console.log("No user found!");
+    return {
+        id: 0,
+        displayname: 'No user found';
+    };
+};
 
     // return db.one(`select * from users where id=$1`, [id]);
     // .then((user) => {
