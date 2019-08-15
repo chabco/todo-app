@@ -1,7 +1,9 @@
 // const http = require('http');
 // replace with express
 const express = require('express');
+
 const Todo = require('./models/Todo');
+const User = require('./models/user');
 
 // Create the server and call it "app"
 const app = express();
@@ -41,8 +43,35 @@ app.get('/todos/:taskId', (req, res) => {
     });
 });
 
+
+
 // console.log(req.params.taskId);
 // server.listen(3000);
 // Replace with app.listen(port, function())
+
+
+
+
+
+// Getting users
+app.get('/users', (req, res) => {
+    const allUsers = User.getAll();
+    allUsers.then ((data) => {
+        res.json(data);
+    });
+});
+
+
+
+
+app.get('/users/:userID', (req, res) => {
+    const theId = parseInt(req.params.userID, 10);
+    const oneUser = User.getOne(theId);
+    oneUser.then ((data) => {
+        res.json(data);
+    });
+});
+
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
