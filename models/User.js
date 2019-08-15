@@ -77,8 +77,28 @@ try {
 
 };
 
+
+// Accept an object argument so we have flexibility later on.
+// That is, we can add more database columns without having to update all of our functions
+async function createUser(userDataObj) {
+    const { displayname, username } = userDataObj;
+    const newUserInfo = await db.one (
+        `insert into users (displayname, username) values($1, $2) returning id`, [displayname, username]);
+
+    console.log(newUserInfo);
+    return newUserInfo
+};
+
+// createUser({
+//     displayname: "sak",
+//     username: "skrnkd"
+// });
+
+
+
 // 3. Serve
 module.exports = {
     getAll,
-    getOne
+    getOne,
+    createUser
 };

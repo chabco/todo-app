@@ -3,10 +3,15 @@
 const express = require('express');
 
 const Todo = require('./models/Todo');
-const User = require('./models/user');
+const User = require('./models/User');
 
 // Create the server and call it "app"
 const app = express();
+
+// Use the urlencoded middleware to read POST bodies
+app.use(express.urlencoded({extended: true}));
+
+
 // Create a variable for the port#
 const port = 3000;
 
@@ -72,6 +77,17 @@ app.get('/users/:userID', (req, res) => {
     // });
 });
 
+// Post so it doesn't create user after every save
+app.post('/users', async (req, res) => {
+    console.log('We got a POST request');
+    // .send() is different from .end()
+    res.send('good job!');
+
+    console.log('Here is the body');
+    console.log(req.body);
+
+    const newUserInfo = await User.createUser(req.body);
+    });
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
