@@ -1,9 +1,8 @@
 const db = require('../db');
 
 async function getAll() {
-    const allTodos = await db.any(`
-        select * from todos
-        `)
+try {
+    const allTodos = await db.any(`select * from todos`)
     // .then((data) => {
     //     console.log('here is the data:');
     //     console.log(data);
@@ -13,9 +12,19 @@ async function getAll() {
     //     console.log(error);
     // });
     return allTodos;
+} catch (error) {
+    console.log('error');
+    console.log(error);
+    return [];
+}
 };
 
+
+
+
+
 async function getOne(id) {
+try {
     // When you want one and only one, use the .one() method.
     // That way, if you don't find it, it triggers the catch().
     // This is better than doing an if/else inside your .then().
@@ -29,8 +38,15 @@ async function getOne(id) {
     //     console.log('ruh roh....');
     //     console.log(error);
     // });
-
     return oneTodo;
+} catch (error) {
+    console.log('error');
+    console.log(error);
+    return {
+        id: 0,
+        task: 'No tasks found'
+    }
+}
 };
 
 

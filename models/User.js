@@ -4,12 +4,17 @@ const db = require('../db');
 
 // 2. Cook
 async function getAll() {
+try {
     const allUsers = await db.any(`select * from users`)
     // .catch((error) => {
     //     console.log('Error getting users.');
     //     console.log(error);
     // });
     return allUsers;
+} catch (error) {
+    console.log('error');
+    console.log(error);
+}
 };
 
 
@@ -37,7 +42,7 @@ try {
     console.log("No user found!");
     return {
         id: 0,
-        displayname: 'No user found';
+        displayname: 'No user found'
     };
 };
 
