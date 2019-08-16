@@ -14,6 +14,9 @@ app.engine('html', es6Renderer);
 app.set('views', 'views');
 app.set('view engine', 'html');
 
+// "static assets" like CSS, JS, and images will go in a directory named "public"
+app.use(express.static('public'));
+
 // Use the urlencoded middleware to read POST bodies
 app.use(express.urlencoded({extended: true}));
 
@@ -30,33 +33,36 @@ const port = 3000;
 app.get('/', (req, res) => {
     res.render('index', {
         locals: {
-            message: 'It is time for lunch'
+            message: 'Welcome to the todos app'
         },
         partials: {
-            navbar: './navbar',
+            navbar: 'navbar',
+            includes: 'includes'
         }
     });
 });
 
 app.get('/profile', (req, res) => {
     res.render('profile', {
-        // locals: {
-        //     message: 'alskdfj;'
-        // },
-        // partials: {
-        //     profile: './profilestuff',
-        // }
+        locals: {
+            // message: 'alskdfj;'
+        },
+        partials: {
+            navbar: 'navbar',
+            includes: 'includes'
+        }
     });
 });
 
 app.get('/profile/todos', (req, res) => {
     res.render('todos', {
-        // locals: {
-        //     message: 'alskdfj;'
-        // },
-        // partials: {
-        //     profile: './profilestuff',
-        // }
+        locals: {
+            // message: 'alskdfj;'
+        },
+        partials: {
+            navbar: 'navbar',
+            includes: 'includes'
+        }
     });
 });
 
