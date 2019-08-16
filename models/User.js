@@ -95,10 +95,19 @@ async function createUser(userDataObj) {
 // });
 
 
+async function createTask(taskDataObj, urlID) {
+    const { priority, task } = taskDataObj;
+    const newTaskInfo = await db.one (
+        `insert into todos (priority, task, user_id) values ($1, $2, $3) returning id`, [priority, task, urlID]);
+
+        console.log(newTaskInfo);
+        return newTaskInfo
+}
 
 // 3. Serve
 module.exports = {
     getAll,
     getOne,
-    createUser
+    createUser,
+    createTask
 };
