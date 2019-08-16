@@ -61,10 +61,38 @@ app.get('/profile/todos', (req, res) => {
         },
         partials: {
             navbar: 'navbar',
-            includes: 'includes'
+            includes: 'includes',
         }
     });
 });
+
+// 1. Allow the user to GET the form for creating a todo
+app.get('/profile/todos/create', (req, res) => {
+    
+    // Render the "create new todo" form template
+    res.render('create-todo', {
+        locals: {
+            // message: 'alskdfj;'
+        },
+        partials: {
+            navbar: 'navbar',
+            includes: 'includes',
+        }
+    });
+});
+
+// 2. Process the body of the form they POST
+app.post('/profile/todos/create', [sanitizeBody('task').escape()], async (req, res) => {
+    // Handle the req.body from the "create new todo" form
+    console.log(req.body)
+
+    // Normally, we don't include the user id in the form
+    // When you log into a site, it keeps track of your id for you.
+    req.body.priority = 1;
+    const taskID = await User.createTask(req.body, req.body.user_id);
+    // res.send(req.body);
+});
+
 
 
 // const server = http.createServer((req, res) => {

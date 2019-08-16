@@ -1,5 +1,27 @@
 body {
     background: linear-gradient(to bottom right, rgb(236, 134, 134), rgb(224, 224, 224), rgb(17, 79, 104));
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 };
 
+h1 {
+    font-family: 'Abril Fatface', cursive;
+}
+
+h1, h2, p {
+    font-family: 'Raleway', sans-serif;
+}
+
+li {
+    list-style-type: none;
+}
+
+input {
+    border-radius: 20px;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
