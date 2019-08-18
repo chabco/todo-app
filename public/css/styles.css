@@ -1,22 +1,48 @@
 body {
-    background: linear-gradient(to bottom right, rgb(236, 134, 134), rgb(224, 224, 224), rgb(17, 79, 104));
+    background: linear-gradient(to bottom right, rgb(225, 213, 240), rgb(252, 252, 252), rgb(238, 164, 201));
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-family: 'Abril Fatface', cursive;
 };
 
 h1 {
     font-family: 'Abril Fatface', cursive;
+    color: lightslategrey;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+    color: rgb(16, 48, 80);
 }
 
 h1, h2, p {
     font-family: 'Raleway', sans-serif;
 }
 
-li {
+.nav {
+    display: flex;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Raleway', sans-serif;
+    list-style-type: square;
+}
+
+.nav > li {
+    padding: 0 30px;
     list-style-type: none;
+    font-family: 'Raleway', sans-serif;
+}
+
+.nav > li > a:visited {
+    color: black;
 }
 
 input {

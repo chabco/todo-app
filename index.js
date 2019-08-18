@@ -33,7 +33,7 @@ const port = 3000;
 app.get('/', (req, res) => {
     res.render('index', {
         locals: {
-            message: 'Welcome to the todos app'
+            message: 'welcome to the example todo-list app'
         },
         partials: {
             navbar: 'navbar',
@@ -42,10 +42,14 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/profile', (req, res) => {
+app.get('/profile', async (req, res) => {
+    const userID = 1;
+    const theUser = await User.getOne(userID)
+    console.log(theUser.username);
     res.render('profile', {
         locals: {
-            // message: 'alskdfj;'
+            displayname: theUser.displayname,
+            username: theUser.username
         },
         partials: {
             navbar: 'navbar',
@@ -54,10 +58,12 @@ app.get('/profile', (req, res) => {
     });
 });
 
-app.get('/profile/todos', (req, res) => {
+app.get('/profile/todos', async (req, res) => {
+    const userID = 1; // Using hard code
+    const theUser = await User.getOne(userID)
     res.render('todos', {
         locals: {
-            // message: 'alskdfj;'
+            todos: theUser.todos
         },
         partials: {
             navbar: 'navbar',
@@ -88,10 +94,17 @@ app.post('/profile/todos/create', [sanitizeBody('task').escape()], async (req, r
 
     // Normally, we don't include the user id in the form
     // When you log into a site, it keeps track of your id for you.
-    req.body.priority = 1;
+    console.log(req.body.user_id);
+    // req.body.priority = 1;
     const taskID = await User.createTask(req.body, req.body.user_id);
+
     // res.send(req.body);
 });
+
+
+
+
+
 
 
 

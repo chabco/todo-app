@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>make task</title>
     ${includes}
 </head>
 <body>
     ${navbar}
-    <h1>Create a new task!</h1>
+    <h1>create a new task!</h1>
     <form action="" method="POST">
         <label>
-            Task:
-            <input name="task">
+            task:
+            <input name="task" placeholder="what would you like to do?">
         </label>
-        <input name="user_id" value="1">
+        <label>
+            user ID:
+            <input name="user_id" value="1">
+        </label>
+        <label>
+            priority:
+            <input name="priority" value="1">
+        </label>
         <input type="submit">
     </form>
 </body>
